@@ -1,0 +1,4 @@
+keyRoot: /etc/ssh/ssh_host_rsa_key_2
+sshUsername: root
+ansiblePort: 22
+ipOffice: 186.68.140.211

@@ -1,0 +1,74 @@
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.0",
+    "body": [
+    {
+        "type": "ColumnSet",
+        "columns": [
+            {
+                "type": "Column",
+                "width": 2,
+                "items": [
+                    {
+                        "type": "TextBlock",
+                        "text": "Sistema de control de visitas.",
+                        "weight": "bolder",
+                        "size": "medium"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "EL sistema le permite ver las actividades  programadas para el dia en curso.",
+                        "isSubtle": true,
+                        "wrap": true
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "Freaky Solutions S.A.",
+                        "isSubtle": true,
+                        "wrap": true,
+                        "size": "small"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "Usuario",
+                        "wrap": true
+                    },
+                    {
+                        "type": "Input.Text",
+                        "id": "usuario",
+                        "placeholder": "1111"
+                    },
+                    {
+                        "type": "TextBlock",
+                        "text": "Contraseña",
+                        "wrap": true
+                    },
+                    {
+                        "type": "Input.Text",
+                        "id": "clave",
+                        "placeholder": "1111"
+                    }
+                ]
+            },
+            {
+                "type": "Column",
+                "width": 1,
+                "items": [
+                    {
+                        "type": "Image",
+                        "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtB3AwMUeNoq4gUBGe6Ocj8kyh3bXa9ZbV7u1fVKQoyKFHdkqU",
+                        "size": "auto"
+                    }
+                ]
+            }
+        ]
+    }
+],
+    "actions": [
+    {
+        "type": "Action.Submit",
+        "title": "Entrar"
+    }
+]
+}

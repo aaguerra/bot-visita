@@ -1,0 +1,85 @@
+- hosts: all
+  become: yes
+  become_method: sudo
+  vars_files:
+    - vars.yml
+  vars:
+    ansible_user : "{{ sshUsername }}"
+    ansible_ssh_private_key_file: "{{ keyRoot }}"
+    ansible_port: "{{ ansiblePort }}"
+  tasks:
+    # configuracion del ssh en el servidor
+  - name: Allow all access to tcp port 22445
+    ufw:
+      rule: limit
+      proto: tcp
+      #src: "{{ ipOffice }}"
+      port: '22445'
+      comment: ssh port final
+  - name: Disable Password Authentication  in file sshd_config
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      regexp: '^#PasswordAuthentication'
+      line: "PasswordAuthentication no"
+      state: present
+      backrefs: yes
+  - name: Change port ssh to 22445  in file sshd_config
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      regexp: '^#Port 22'
+      line: "Port 22445"
+      state: present
+      backrefs: yes
+  - name: set HostKey /etc/ssh/ssh_host_rsa_key  in file sshd_config
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      regexp: '^#HostKey /etc/ssh/ssh_host_rsa_key'
+      line: "HostKey /etc/ssh/ssh_host_rsa_key"
+      state: present
+      backrefs: yes
+  - name: set HostKey /etc/ssh/ssh_host_ecdsa_key  in file sshd_config
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      regexp: '^#HostKey /etc/ssh/ssh_host_ecdsa_key'
+      line: "HostKey /etc/ssh/ssh_host_ecdsa_key"
+      state: present
+      backrefs: yes
+  - name: set HostKey /etc/ssh/ssh_host_ed25519_key  in file sshd_config
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      regexp: '^#HostKey /etc/ssh/ssh_host_ed25519_key'
+      line: "HostKey /etc/ssh/ssh_host_ed25519_key"
+      state: present
+      backrefs: yes
+  - name: set MaxAuthTries  in file sshd_config
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      regexp: '^#MaxAuthTries'
+      line: "MaxAuthTries 3"
+      state: present
+      backrefs: yes
+  - name: set PubkeyAuthentication  in file sshd_config
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      regexp: '^#PubkeyAuthentication'
+      line: "PubkeyAuthentication yes"
+      state: present
+      backrefs: yes
+  - name: Disable Root Login  in file sshd_config
+    lineinfile:
+      dest: /etc/ssh/sshd_config
+      regexp: '^#PermitRootLogin'
+      line: "PermitRootLogin yes"
+      state: present
+      backrefs: yes
+    #notify:
+      #- restart ssh
+  #- name: restart ssh
+  #  service:
+  #    name: ssh
+  #    state: restarted
+  #handlers:
+  #  - name: restart ssh
+  #    service:
+  #      name: ssh
+   #     state: restarted
